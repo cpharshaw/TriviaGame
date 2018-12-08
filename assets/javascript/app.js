@@ -11,7 +11,7 @@ window.onload = function () {
         correctAnswer: "",
 
         qTime: 10000,
-        breakTime: 4000,
+        breakTime: 3000,
         qAndANum: 0,
 
         countdown: null,
@@ -24,6 +24,7 @@ window.onload = function () {
             game.countdown = setInterval(function () {
                 if (game.qTime === 0) {
                     clearInterval(game.countdown);
+                    game.numUnanswered++;
                     game.printIncorrectOrUnanswered("You ran out of time!");
                     game.timeBetween();
                 } else {
@@ -38,6 +39,7 @@ window.onload = function () {
             game.pause = setInterval(function () {
                 if (game.breakTime === 0) {
                     clearInterval(game.pause);
+                    console.log(game.qAndANum + ', ' + game.qAndAArr.length);
                     game.nextQAndA();
                 } else {
                     game.breakTime -= 1000;
@@ -49,7 +51,7 @@ window.onload = function () {
         printInit: function () {            
             $('#content').empty();
             $('#content').html(
-                '<div>' +
+                '<div id="">' +
                     '<br>' +
                     '<h1 id="time" class=""></h1>' +
                     '<br>' +
@@ -72,8 +74,11 @@ window.onload = function () {
                     '<br>' +
                     '<div id="choices" class="">' +
                         '<h1 id="a1" class="answer">' + game.qAndAArr[qNum].answerChoices[0] + '</h1>' +
+                        '<br>' +
                         '<h1 id="a2" class="answer">' + game.qAndAArr[qNum].answerChoices[1] + '</h1>' +
+                        '<br>' +
                         '<h1 id="a3" class="answer">' + game.qAndAArr[qNum].answerChoices[2] + '</h1>' +
+                        '<br>' +
                         '<h1 id="a4" class="answer">' + game.qAndAArr[qNum].answerChoices[3] + '</h1>' +
                     '</div>' +
                 '</div>'
@@ -84,7 +89,7 @@ window.onload = function () {
         printCorrect: function () {
             $('#verbiage').empty();
             $('#verbiage').html(
-                '<div>' +
+                '<div id="">' +
                     // '<br>' +
                     '<h1 id="result" class="">Correct!</h1>' +
                     '<br>' +
@@ -98,7 +103,7 @@ window.onload = function () {
         printIncorrectOrUnanswered: function (result) {
             $('#verbiage').empty();
             $('#verbiage').html(
-                '<div>' +
+                '<div id="">' +
                     // '<br>' +
                     '<h1 id="result" class="">' + result + '</h1>' +
                     '<br>' +
@@ -114,7 +119,7 @@ window.onload = function () {
         printEndGame: function () {
             $('#verbiage').empty();
             $('#verbiage').html(
-                '<div>' +
+                '<div id="">' +
                     // '<br>' +
                     '<h1 id="result" class="">All done, here\'s you you did!</h1>' +
                     '<br>' +
@@ -132,7 +137,7 @@ window.onload = function () {
 
 
         nextQAndA: function() {
-            if (game.qAndANum === 0) {
+            if (game.qAndANum === game.qAndAArr.length - 1) {
                 game.printEndGame();
             } else {
                 game.qTime = 10000;
@@ -150,12 +155,12 @@ window.onload = function () {
                 'question': "What is the capital of Pennsylvania?",
                 'answerChoices': ["Harrisburg", "Philadelphia", "Scranton", "Pittsburgh"],
                 'answerCorrect': "Harrisburg"
+            },
+            {
+                'question': "What is the capital of Ohio?",
+                'answerChoices': ["Columbus", "Cleveland", "Cincinnati", "Akron"],
+                'answerCorrect': "Columbus"
             }
-            // {
-            //     'question': "What is the capital of Ohio?",
-            //     'answerChoices': ["Columbus", "Cleveland", "Cincinnati", "Akron"],
-            //     'answerCorrect': "Columbus"
-            // },
             // {
             //     'question': "What is the capital of West Virginia?",
             //     'answerChoices': ["Huntington", "Charleston", "Morgantown", "Wheeling"],
@@ -233,7 +238,7 @@ window.onload = function () {
         game.correctAnswer = "";
 
         game.qTime = 10000;
-        game.breakTime = 4000;
+        game.breakTime = 3000;
         game.qAndANum = 0;
 
         game.countdown = null;
