@@ -19,13 +19,13 @@ window.onload = function () {
 
 
         printCountdown: function () {
-            $('#time').text("Time remaining: 8 seconds");
+            $('#time').text("Time remaining: 10 seconds");
 
             game.countdown = setInterval(function () {
                 if (game.qTime === 0) {
                     clearInterval(game.countdown);
                     game.numUnanswered++;
-                    game.printIncorrectOrUnanswered("You ran out of time!");
+                    game.printIncorrectOrUnanswered("You ran out of time!", game.qAndANum);
                     game.timeBetween();
                 } else {
                     game.qTime -= 1000;
@@ -86,30 +86,30 @@ window.onload = function () {
 
         },
 
-        printCorrect: function () {
+        printCorrect: function (qNum) {
             $('#verbiage').empty();
             $('#verbiage').html(
                 '<div id="">' +
                     // '<br>' +
                     '<h1 id="result" class="">Correct!</h1>' +
                     '<br>' +
-                    '<img src="https://via.placeholder.com/300x200">' +
+                    '<img src="' + game.qAndAArr[qNum].image + '">' +
                     // '<br>'  +
                 '</div>'
             )
         },
 
 
-        printIncorrectOrUnanswered: function (result) {
+        printIncorrectOrUnanswered: function (result, qNum) {
             $('#verbiage').empty();
             $('#verbiage').html(
                 '<div id="">' +
-                    // '<br>' +
+                    '<br>' +
                     '<h1 id="result" class="">' + result + '</h1>' +
                     '<br>' +
                     '<h1 id="correctAnswer" class="">The correct answer was: ' + game.correctAnswer + '</h1>' +
                     '<br>' +
-                    '<img src="https://via.placeholder.com/300x200">' +
+                    '<img src="' + game.qAndAArr[qNum].image + '">' +
                     // '<br>' +
                 '</div>'
             )
@@ -129,7 +129,7 @@ window.onload = function () {
                     '<br>' +
                     '<h2 id="correctAnswer" class="">Unanswered: ' + game.numUnanswered + '</h2>' +                    
                     '<br>' +
-                    '<button id="restartBtn" class="">Start over?</button>' +
+                    '<div id="restartBtn" class="button">Start over?</div>' +
                     // '<br>' +
                 '</div>'
             )
@@ -153,66 +153,78 @@ window.onload = function () {
         qAndAArr: [
             {
                 'question': "What is the capital of Pennsylvania?",
+                'image': 'https://barletta.house.gov/sites/barletta.house.gov/files/styles/congress_office_location_thumbnail/public/featured_image/office_location/Harrisburg.jpg?itok=CieLww3j',
                 'answerChoices': ["Harrisburg", "Philadelphia", "Scranton", "Pittsburgh"],
                 'answerCorrect': "Harrisburg"
             },
             {
                 'question': "What is the capital of Ohio?",
+                'image': 'https://www.travelshelper.com/wp-content/uploads/2017/01/Columbus-Ohio-travel-guide-Travel-S-Helper-400x300.jpg',
                 'answerChoices': ["Columbus", "Cleveland", "Cincinnati", "Akron"],
                 'answerCorrect': "Columbus"
-            }
-            // {
-            //     'question': "What is the capital of West Virginia?",
-            //     'answerChoices': ["Huntington", "Charleston", "Morgantown", "Wheeling"],
-            //     'answerCorrect': "Charleston"
-            // },
-            // {
-            //     'question': "What is the capital of Maryland?",
-            //     'answerChoices': ["Baltimore", "College Park", "Bel Air", "Annapolis"],
-            //     'answerCorrect': "Annapolis"
-            // },
+            },
+            {
+                'question': "What is the capital of West Virginia?",
+                'image': 'http://2.bp.blogspot.com/_BAsoDFpqKII/Sefuci5SrpI/AAAAAAAAAhw/h2jRkxRxbbI/s400/CitySign_2009-04-16.jpg',
+                'answerChoices': ["Huntington", "Charleston", "Morgantown", "Wheeling"],
+                'answerCorrect': "Charleston"
+            },
+            {
+                'question': "What is the capital of Maryland?",
+                'image': 'http://img.homesale.com/Homes/Images/Listings/126063923/1/dfb838714137d7cc1305e7b8be93800c/Yes/400/300/Photo.jpg',
+                'answerChoices': ["Baltimore", "College Park", "Bel Air", "Annapolis"],
+                'answerCorrect': "Annapolis"
+            },
 
-            // {
-            //     'question': "What is the capital of New Jersey?",
-            //     'answerChoices': ["Princeton", "Newark", "Trenton", "Hamilton"],
-            //     'answerCorrect': "Trenton"
-            // },
-            // {
-            //     'question': "What is the capital of New York?",
-            //     'answerChoices': ["Syracuse", "West Chester", "Albany", "New York City"],
-            //     'answerCorrect': "Albany"
-            // },
-            // {
-            //     'question': "What is the capital of Delaware?",
-            //     'answerChoices': ["Newark", "Wilmington", "Dover", "Milford"],
-            //     'answerCorrect': "Dover"
-            // },
-            // {
-            //     'question': "What is the capital of Connecticut?",
-            //     'answerChoices': ["Fairfield", "Hartford", "Storrs", "Mystic"],
-            //     'answerCorrect': "Hartford"
-            // },
+            {
+                'question': "What is the capital of New Jersey?",
+                'image': 'http://ancestrymemorials.com/Content/images/inscriptions-1.jpg',
+                'answerChoices': ["Princeton", "Newark", "Trenton", "Hamilton"],
+                'answerCorrect': "Trenton"
+            },
+            {
+                'question': "What is the capital of New York?",
+                'image': 'https://s3.amazonaws.com/gs-waymarking-images/10c72de7-3d57-4f6c-8716-c145534e22c1_d.JPG',
+                'answerChoices': ["Syracuse", "West Chester", "Albany", "New York City"],
+                'answerCorrect': "Albany"
+            },
+            {
+                'question': "What is the capital of Delaware?",
+                'image': 'https://s3.amazonaws.com/gs-waymarking-images/13067aef-b861-46eb-ae63-11e0600c6436_d.JPG',
+                'answerChoices': ["Newark", "Wilmington", "Dover", "Milford"],
+                'answerCorrect': "Dover"
+            },
+            {
+                'question': "What is the capital of Connecticut?",
+                'image': 'https://www.gpsmycity.com/img/gd_attr/47749.jpg',
+                'answerChoices': ["Fairfield", "Hartford", "Storrs", "Mystic"],
+                'answerCorrect': "Hartford"
+            },
 
-            // {
-            //     'question': "What is the capital of Massachusetts?",
-            //     'answerChoices': ["Boston", "Worcester", "Lowell", "Cambridge"],
-            //     'answerCorrect': "Boston"
-            // },
-            // {
-            //     'question': "What is the capital of Rhode Island?",
-            //     'answerChoices': ["Woonsocket", "Providence", "Warwick", "Cranston"],
-            //     'answerCorrect': "Providence"
-            // },
-            // {
-            //     'question': "What is the capital of Texas?",
-            //     'answerChoices': ["Dallas", "Houston", "San Antonio", "Austin"],
-            //     'answerCorrect': "Austin"
-            // },
-            // {
-            //     'question': "What is the capital of California?",
-            //     'answerChoices': ["Oakland", "San Fransisco", "Sacremento", "Los Angeles"],
-            //     'answerCorrect': "Sacremento"
-            // },
+            {
+                'question': "What is the capital of Massachusetts?",
+                'image': 'https://cdn.bestday.net/_lib/vimages/Tours/boston-un-dia-desde-nyc/fachada_g.jpg',
+                'answerChoices': ["Boston", "Worcester", "Lowell", "Cambridge"],
+                'answerCorrect': "Boston"
+            },
+            {
+                'question': "What is the capital of Rhode Island?",
+                'image': 'https://s3.amazonaws.com/gs-waymarking-images/b6c71007-28e0-43df-b90b-7f270b5e9edd_d.jpg',
+                'answerChoices': ["Woonsocket", "Providence", "Warwick", "Cranston"],
+                'answerCorrect': "Providence"
+            },
+            {
+                'question': "What is the capital of Texas?",
+                'image': 'https://photos.smugmug.com/Buy-Prints/Texas/i-bHxZM2P/0/e9d4af37/S/austin-20-S.jpg',
+                'answerChoices': ["Dallas", "Houston", "San Antonio", "Austin"],
+                'answerCorrect': "Austin"
+            },
+            {
+                'question': "What is the capital of California?",
+                'image': 'https://www.picclickimg.com/d/l400/pict/122431867702_/Sacramento-California-CA-State-Capitol-Building-Vintage-Linen.jpg',
+                'answerChoices': ["Oakland", "San Fransisco", "Sacramento", "Los Angeles"],
+                'answerCorrect': "Sacramento"
+            },
         ],
 
 
@@ -257,10 +269,10 @@ window.onload = function () {
         game.playerAnswer = $(this).text();
 
         if (game.playerAnswer === game.correctAnswer) {
-            game.printCorrect();   
+            game.printCorrect(game.qAndANum);   
             game.numCorrect++;
         } else if (game.player !== game.correctAnswer) {
-            game.printIncorrectOrUnanswered("Nope!");
+            game.printIncorrectOrUnanswered("Nope!", game.qAndANum);
             game.numIncorrect++;
         };
 
